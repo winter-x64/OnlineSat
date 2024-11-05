@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AISAT Stationary Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("{{ url_for('static', filename='images/3.png') }}");
+      }
+      nav {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        position: fixed;
+        width: 100%;
+        height: 30px;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .title {
+        margin: 0;
+        padding: 0;
+      }
+
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      nav ul li {
+        margin: 0 10px;
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        padding: 0 10px;
+      }
+
+      .main {
+        margin: 50px auto 0;
+        max-width: 600px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .cart-items {
+        list-style: none;
+        padding: 0;
+      }
+
+      .cart-items li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .cart-items li button {
+        margin-left: 10px;
+      }
+
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+      .payment-form {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #ccc;
+      }
+
+      .payment-form .form-group {
+        margin-bottom: 15px;
+      }
+
+      .payment-form label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .payment-form input[type="text"],
+      .payment-form input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0 15px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .payment-form button {
+        background-color: #28a745;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .payment-form button:hover {
+        background-color: #218838;
+      }
+      .generate_qr {
+        appearance: none;
+        background-color: #fafbfc;
+        border: 1px solid rgba(27, 31, 35, 0.15);
+        border-radius: 6px;
+        box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+          rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+        box-sizing: border-box;
+        color: #24292e;
+        cursor: pointer;
+        display: inline-block;
+        font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+          sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        list-style: none;
+        padding: 6px 16px;
+        position: relative;
+        transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+        white-space: nowrap;
+        word-wrap: break-word;
+      }
+
+      .generate_qr:hover {
+        background-color: #f3f4f6;
+        text-decoration: none;
+        transition-duration: 0.1s;
+      }
+
+      .generate_qr:disabled {
+        background-color: #fafbfc;
+        border-color: rgba(27, 31, 35, 0.15);
+        color: #959da5;
+        cursor: default;
+      }
+
+      .generate_qr:active {
+        background-color: #edeff2;
+        box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+        transition: none 0s;
+      }
+
+      .generate_qr:focus {
+        outline: 1px transparent;
+      }
+
+      .generate_qr:before {
+        display: none;
+      }
+
+      .generate_qr:-webkit-details-marker {
+        display: none;
+      }
+      .back-button {
+        background-color: #fff;
+        border: 1px solid #d5d9d9;
+        border-radius: 8px;
+        box-shadow: rgba(213, 217, 217, 0.5) 0 2px 5px 0;
+        box-sizing: border-box;
+        color: #0f1111;
+        cursor: pointer;
+        display: inline-block;
+        font-family: "Amazon Ember", sans-serif;
+        font-size: 13px;
+        line-height: 29px;
+        padding: 0 10px 0 11px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+        width: 100px;
+      }
+
+      .back-button:hover {
+        background-color: #f7fafa;
+      }
+
+      .back-button:focus {
+        border-color: #008296;
+        box-shadow: rgba(213, 217, 217, 0.5) 0 2px 5px 0;
+        outline: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <div class="title">
+        <p>AISAT Stationary Store</p>
+      </div>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('shop') }}">Shop</a></li>
+      </ul>
+    </nav>
+    <div class="main">
+      <h2>Your Items</h2>
+      <ul id="cart-items" class="cart-items"></ul>
+      <button class="back-button" onclick="goToShop()">Back to shop</button>
+      <button class="generate_qr" role="button">Pay Now</button>
+
+      <div class="qr_code m20" style="display: none">
+        <center>
+          <p>Scan the QR Code with any UPI App and pay the amount</p>
+        </center>
+        <center><img src="" alt="QR CODE" class="get_qr m10" /></center>
+      </div>
+    </div>
+    <script>
+      let totalPrice = 0;
+      let transactionId = null;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const cartItems = document.getElementById("cart-items");
+
+        function updateCartDisplay() {
+          const items = JSON.parse(localStorage.getItem("cartItems")) || [];
+          const itemCountMap = items.reduce((map, item) => {
+            if (!map[item.name]) {
+              map[item.name] = { ...item, count: 0 };
+            }
+            map[item.name].count += 1;
+            return map;
+          }, {});
+
+          cartItems.innerHTML = "";
+          totalPrice = 0;
+
+          if (items.length === 0) {
+            let emptyMessage = document.createElement("li");
+            emptyMessage.textContent = "Selected items appear here.";
+            emptyMessage.classList.add("cart-empty");
+            cartItems.appendChild(emptyMessage);
+          } else {
+            Object.values(itemCountMap).forEach((item) => {
+              let cartItem = document.createElement("li");
+              cartItem.innerHTML = `<div>${item.name} - ${item.price}₹ x ${item.count}</div>`;
+              cartItems.appendChild(cartItem);
+              totalPrice += parseInt(item.price) * item.count;
+            });
+          }
+
+          let totalElement = document.createElement("div");
+          totalElement.classList.add("cart-total");
+          totalElement.innerHTML = `<div><strong>Total Price:</strong></div><div><strong>${totalPrice}₹</strong></div>`;
+          cartItems.appendChild(totalElement);
+        }
+
+        function removeFromCart(itemName) {
+          let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+          const itemIndex = cartItems.findIndex(
+            (item) => item.name === itemName
+          );
+          if (itemIndex !== -1) {
+            cartItems.splice(itemIndex, 1);
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+            updateCartDisplay();
+          }
+        }
+
+        updateCartDisplay();
+      });
+
+      function goToShop() {
+        localStorage.removeItem("cartItems");
+        window.location.href = "{{ url_for('shop') }}";
+      }
+
+      $(document).ready(function () {
+        $(".generate_qr").click(function () {
+          const items = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+          const transactionData = {
+            items: items,
+            total_amount: totalPrice,
+            timestamp: new Date().toISOString(),
+          };
+
+          fetch("/save_transaction", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(transactionData),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              transactionId = data.transaction_id;
+              $(".form").hide();
+              $(".qr_code").show();
+              var link = `upi://pay?pa=arunantony9567@okhdfcbank%26am=${totalPrice}%26tn=Transaction_${transactionId}`;
+              var upi =
+                "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+                link;
+              $(".get_qr").attr("src", upi);
+            })
+            .catch((error) => {
+              console.error("Error saving transaction:", error);
+              alert("Error processing transaction. Please try again.");
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

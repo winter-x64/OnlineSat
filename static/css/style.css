@@ -1,0 +1,155 @@
+.title {
+    margin: 0;
+    padding: 0;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 10px;
+}
+
+.main {
+    max-width: auto;
+    max-height: fit-content;
+    margin: auto;
+    background-color: #fff;
+}
+
+.container {
+    margin: auto;
+    padding: 300px 20px 20px;
+    width: 50%;
+}
+
+.container-shop {
+    display: flex;
+    margin-top: 50px;
+}
+
+.items-list {
+    flex: 2;
+    padding: 20px;
+}
+
+.item {
+    margin: auto;
+    padding: 20px;
+    width: 80%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.selection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: auto;
+}
+
+.selection button {
+    margin-bottom: 10px;
+}
+
+.item-count {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.cart-items {
+    list-style: none;
+    padding: 0;
+}
+
+.cart-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: cornflowerblue;
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-items li button {
+    margin-left: 10px;
+}
+
+.cart-empty {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+}
+
+a.pay-now {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.button-pay {
+    appearance: none;
+    background-color: #000000;
+    border: 2px solid #1A1A1A;
+    border-radius: 15px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    min-height: 60px;
+    min-width: 0;
+    outline: none;
+    padding: 16px 24px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 100%;
+    will-change: transform;
+}
+
+.button-pay:disabled {
+    pointer-events: none;
+}
+
+.button-pay:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+}
+
+.button-pay:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+

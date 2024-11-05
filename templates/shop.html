@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AISAT Stationary Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-image: url("{{ url_for('static', filename='images/3.png') }}");
+        }
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            height: 30px;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        .cart {
+            flex: 1;
+            background-image: url("{{ url_for('static', filename='images/7.webp') }}");
+            background-position: center;
+            padding: 20px;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .add-to-cart {
+            align-items: center;
+            appearance: none;
+            background-color: #fff;
+            border-radius: 24px;
+            border-style: none;
+            box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+            box-sizing: border-box;
+            color: #3c4043;
+            cursor: pointer;
+            display: inline-flex;
+            fill: currentcolor;
+            font-family: "Google Sans",Roboto,Arial,sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            height: 48px;
+            justify-content: center;
+            letter-spacing: .25px;
+            line-height: normal;
+            max-width: 100%;
+            overflow: visible;
+            padding: 2px 24px;
+            position: relative;
+            text-align: center;
+            text-transform: none;
+            transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            width: auto;
+            will-change: transform,opacity;
+        }
+
+        .add-to-cart:hover {
+            background: #F6F9FE;
+            color: #174ea6;
+        }
+
+        .add-to-cart:active {
+            box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+            outline: none;
+        }
+
+        .add-to-cart:focus {
+            outline: none;
+            border: 2px solid #4285f4;
+        }
+
+        .add-to-cart:not(:disabled) {
+            box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+        }
+
+        .add-to-cart:not(:disabled):hover {
+            box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+        }
+
+        .add-to-cart:not(:disabled):focus {
+            box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+        }
+
+        .add-to-cart:not(:disabled):active {
+            box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+        }
+
+        .add-to-cart:disabled {
+            box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+        }
+        .remove-from-cart {
+            background: #FF4742;
+            border: 1px solid #FF4742;
+            border-radius: 6px;
+            box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 16px;
+            min-height: 40px;
+            outline: 0;
+            padding: 12px 14px;
+            text-align: center;
+            text-rendering: geometricprecision;
+            text-transform: none;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: middle;
+        }
+
+        .remove-from-cart:hover,
+        .remove-from-cart:active {
+            background-color: initial;
+            background-position: 0 0;
+            color: #FF4742;
+        }
+
+        .remove-from-cart:active {
+            opacity: .5;
+        }
+      </style>
+</head>
+
+<body>
+    <nav>
+        <div class="title">
+            <p>AISAT Stationary Store</p>
+        </div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop">Shop</a></li>
+        </ul>
+    </nav>
+    <div class="container-shop">
+        <div class="items-list">
+            <p class="name">
+                <h2>Select your Items</h2>
+            </p>
+            <div class="item" data-item="pen" data-price="10">
+                <div>
+                    <h2>Pen</h2>
+                    <p>Price: 10<span>&#8377;</span></p>
+                </div>
+                <div class="selection">
+                    <button type="button" class="add-to-cart">Add to Cart</button>
+                    <button type="button" class="remove-from-cart">Remove</button>
+                    <p>Items in Cart: <span class="item-count" data-item="pen">0</span></p>
+                </div>
+            </div>
+            <div class="item" data-item="Pencil" data-price="2">
+                <div>
+                    <h2>Pencil</h2>
+                    <p>Price: 2<span>&#8377;</span></p>
+                </div>
+                <div class="selection">
+                    <button type="button" class="add-to-cart">Add to Cart</button>
+                    <button type="button" class="remove-from-cart">Remove</button>
+                    <p>Items in Cart: <span class="item-count" data-item="Pencil">0</span></p>
+                </div>
+            </div>
+            <div class="item" data-item="Scale" data-price="5">
+                <div>
+                    <h2>Scale</h2>
+                    <p>Price: 5<span>&#8377;</span></p>
+                </div>
+                <div class="selection">
+                    <button class="add-to-cart" role="button">Add to Cart</button>
+                    <button class="remove-from-cart" role="button">Remove</button>
+                    <p>Items in Cart: <span class="item-count" data-item="Scale">0</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="cart" id="cart">
+            <h2>Shopping Cart</h2>
+            <ul id="cart-items" class="cart-items">
+                <li class="cart-empty">Selected items appear here.</li>
+            </ul>
+            <a href="/confirm" class="pay-now"><button class="button-pay" role="button">Check Out</button></a>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cartItems = document.getElementById('cart-items');
+            const cart = document.getElementById('cart');
+
+            function updateCartDisplay() {
+                const items = JSON.parse(localStorage.getItem('cartItems')) || [];
+                cartItems.innerHTML = '';
+                let totalPrice = 0;
+                const itemCountMap = items.reduce((map, item) => {
+                    if (!map[item.name]) {
+                        map[item.name] = { ...item, count: 0 };
+                    }
+                    map[item.name].count += 1;
+                    return map;
+                }, {});
+
+                if (items.length === 0) {
+                    let emptyMessage = document.createElement('li');
+                    emptyMessage.textContent = 'Selected items appear here.';
+                    emptyMessage.classList.add('cart-empty');
+                    cartItems.appendChild(emptyMessage);
+                } else {
+                    Object.values(itemCountMap).forEach(item => {
+                        let cartItem = document.createElement('li');
+                        cartItem.textContent = `${item.name} - ${item.price}₹ x ${item.count}`;
+                        cartItem.setAttribute('data-id', item.id);
+                        let removeButton = document.createElement('button');
+                        removeButton.textContent = 'Remove';
+                        removeButton.classList.add('remove-from-cart');
+                        removeButton.addEventListener('click', function () {
+                            removeFromCart(item.name);
+                        });
+                        cartItem.appendChild(removeButton);
+                        cartItems.appendChild(cartItem);
+                        totalPrice += parseInt(item.price) * item.count;
+                    });
+                }
+
+                let totalElement = document.createElement('div');
+                totalElement.classList.add('cart-total');
+                totalElement.innerHTML = `<strong>Total Price: ${totalPrice}₹</strong>`;
+                cartItems.appendChild(totalElement);
+            }
+
+            function updateItemCount() {
+                const items = JSON.parse(localStorage.getItem('cartItems')) || [];
+                const itemCountElements = document.querySelectorAll('.item-count');
+                itemCountElements.forEach(element => {
+                    const itemName = element.getAttribute('data-item');
+                    const itemCount = items.filter(item => item.name === itemName).length;
+                    element.textContent = itemCount;
+                });
+            }
+
+            function addToCart(itemName, itemPrice) {
+                const items = JSON.parse(localStorage.getItem('cartItems')) || [];
+                const newItem = { id: Date.now().toString(), name: itemName, price: itemPrice };
+                items.push(newItem);
+                localStorage.setItem('cartItems', JSON.stringify(items));
+                updateCartDisplay();
+                updateItemCount();
+            }
+
+            function removeFromCart(itemName) {
+                let items = JSON.parse(localStorage.getItem('cartItems')) || [];
+                const itemIndex = items.findIndex(item => item.name === itemName);
+                if (itemIndex !== -1) {
+                    items.splice(itemIndex, 1);
+                }
+                localStorage.setItem('cartItems', JSON.stringify(items));
+                updateCartDisplay();
+                updateItemCount();
+            }
+
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function () {
+                    const itemElement = this.closest('.item');
+                    const itemName = itemElement.getAttribute('data-item');
+                    const itemPrice = itemElement.getAttribute('data-price');
+                    addToCart(itemName, itemPrice);
+                });
+            });
+
+            document.querySelectorAll('.remove-from-cart').forEach(button => {
+                button.addEventListener('click', function () {
+                    const itemElement = this.closest('.item');
+                    const itemName = itemElement.getAttribute('data-item');
+                    removeFromCart(itemName);
+                });
+            });
+
+            updateCartDisplay();
+            updateItemCount();
+        });
+    </script>
+</body>
+
+</html>

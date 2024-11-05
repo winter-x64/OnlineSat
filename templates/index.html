@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AISAT Stationary Store</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("{{ url_for('static', filename='images/3.png') }}");
+      }
+      nav {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        position: fixed;
+        width: 100%;
+        height: 30px;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+
+  <body class="main">
+    <nav>
+      <div class="title">
+        <p>AISAT Stationary Store</p>
+      </div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/shop">Shop</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <h2>Shop with Us Click <a href="/shop"> here </a></h2>
+      <p>
+        AISAT Stationary Store at the easiest. Select your items here and make
+        the payment Then grab your items.
+      </p>
+    </div>
+  </body>
+</html>
